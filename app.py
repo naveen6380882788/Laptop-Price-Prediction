@@ -228,19 +228,18 @@ if st.button("🔮 Predict Laptop Price"):
     prediction = model.predict(new_laptop)[0]
 
     st.markdown(
-        f"""
-        <div class="result-box">
-            <div class="result-title">
-                Estimated Laptop Price
-            </div>
-
-            <div class="result-price">
-                ₹ {prediction:,.2f}
-            </div>
+    f"""
+    <div class="result-box">
+        <div class="result-title">
+            Estimated Laptop Price
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+        <div class="result-price">
+            ₹ {prediction:,.2f}
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # =========================
