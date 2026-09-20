@@ -248,6 +248,7 @@ if st.button("🔮 Predict Laptop Price"):
 st.markdown(
     """
     <div class="footer">
+        Created by <b>NAVEEN RAJ</b><br>
         Laptop Price Prediction using Python & Machine Learning
     </div>
     """,
