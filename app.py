@@ -93,13 +93,7 @@ div[data-baseweb="select"] > div {
     height: 55px;
     border-radius: 14px;
     border: none;
-
-    background: linear-gradient(
-        90deg,
-        #00c6ff,
-        #7b2ff7
-    );
-
+    background: linear-gradient(90deg, #00c6ff, #7b2ff7);
     color: white;
     font-size: 18px;
     font-weight: 700;
@@ -117,13 +111,9 @@ div[data-baseweb="select"] > div {
     padding: 25px;
     border-radius: 18px;
     text-align: center;
-
     background: rgba(255,255,255,0.08);
-
     border: 1px solid rgba(255,255,255,0.18);
-
-    box-shadow:
-        0 8px 30px rgba(0,0,0,0.25);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
 }
 
 .result-title {
@@ -138,75 +128,33 @@ div[data-baseweb="select"] > div {
 }
 
 /* =========================
-   CREATOR SECTION
+   CREATOR DESIGN
    ========================= */
 
-.creator-section {
-    text-align: center !important;
-    margin-top: 60px;
-    padding: 25px 10px;
-}
-
 .creator-label {
+    text-align: center;
     color: #d8d8ff;
     font-size: 15px;
     font-weight: 700;
-
     letter-spacing: 7px;
-
-    text-align: center;
-
-    margin-bottom: 12px;
+    margin-top: 60px;
+    margin-bottom: 10px;
 }
 
 .creator-name {
     text-align: center;
-
+    color: #00e5ff;
     font-size: 38px;
     font-weight: 800;
-
     letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-    background: linear-gradient(
-        90deg,
-        #00e5ff,
-        #7c4dff,
-        #ff4ecd
-    );
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.creator-line {
-    width: 100px;
-    height: 4px;
-
-    margin: 18px auto;
-
-    border-radius: 20px;
-
-    background: linear-gradient(
-        90deg,
-        #00e5ff,
-        #a855f7,
-        #ff4ecd
-    );
-
-    box-shadow:
-        0 0 12px rgba(168, 85, 247, 0.7);
+    margin-bottom: 15px;
 }
 
 .creator-project {
     text-align: center;
-
     color: #aeb6d4;
-
     font-size: 14px;
-
-    letter-spacing: 0.5px;
+    margin-top: 15px;
 }
 
 </style>
@@ -237,7 +185,6 @@ X = df[[
 y = df["Price"]
 
 model = LinearRegression()
-
 model.fit(X, y)
 
 
@@ -262,24 +209,20 @@ st.markdown(
 # =========================
 st.markdown("### ⚙️ Laptop Specifications")
 
-
 ram = st.selectbox(
     "RAM (GB)",
     [4, 8, 16, 32]
 )
-
 
 storage = st.selectbox(
     "Storage (GB)",
     [128, 256, 512, 1024, 2048, 4096]
 )
 
-
 processor = st.selectbox(
     "Processor",
     [3, 5, 7, 9]
 )
-
 
 screen_size = st.selectbox(
     "Screen Size (inches)",
@@ -304,15 +247,12 @@ if st.button("🔮 Predict Laptop Price"):
     st.markdown(
         f"""
         <div class="result-box">
-
             <div class="result-title">
                 Estimated Laptop Price
             </div>
-
             <div class="result-price">
                 ₹ {prediction:,.2f}
             </div>
-
         </div>
         """,
         unsafe_allow_html=True
@@ -320,27 +260,24 @@ if st.button("🔮 Predict Laptop Price"):
 
 
 # =========================
-# CREATOR FOOTER
+# CREATOR
 # =========================
+
 st.markdown(
-    """
-    <div class="creator-section">
+    '<div class="creator-label">CREATED BY</div>',
+    unsafe_allow_html=True
+)
 
-        <div class="creator-label">
-            CREATED BY
-        </div>
+st.markdown(
+    '<div class="creator-name">NAVEEN RAJ</div>',
+    unsafe_allow_html=True
+)
 
-        <div class="creator-name">
-            NAVEEN RAJ
-        </div>
+st.divider()
 
-        <div class="creator-line"></div>
-
-        <div class="creator-project">
-            Laptop Price Prediction Using Machine Learning
-        </div>
-
-    </div>
-    """,
+st.markdown(
+    '<div class="creator-project">'
+    'Laptop Price Prediction Using Machine Learning'
+    '</div>',
     unsafe_allow_html=True
 )
