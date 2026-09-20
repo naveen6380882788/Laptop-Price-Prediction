@@ -94,7 +94,7 @@ div[data-baseweb="select"] > div {
     border-radius: 14px;
     border: none;
     background: linear-gradient(90deg, #00c6ff, #7b2ff7);
-    color: white;
+    color: black;
     font-size: 18px;
     font-weight: 700;
     transition: 0.3s;
@@ -233,9 +233,7 @@ screen_size = st.selectbox(
 # =========================
 # PREDICT
 # =========================
-if st.button("🔮 Predict Laptop Price"):{
-       layout="centered"
-}
+if st.button("🔮 Predict Laptop Price"):
 
     new_laptop = pd.DataFrame({
         "RAM": [ram],
