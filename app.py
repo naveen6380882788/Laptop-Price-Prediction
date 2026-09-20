@@ -88,18 +88,27 @@ div[data-baseweb="select"] > div {
 }
 
 /* Button */
+.stButton {
+    display: flex;
+    justify-content: center;
+}
+
 .stButton > button {
-    width: 100%;
+    width: 220px;
     height: 55px;
     border-radius: 14px;
     border: none;
     background: linear-gradient(90deg, #00c6ff, #7b2ff7);
-    color: black;
-    font-size: 18px;
+    color: white;
+    font-size: 16px;
     font-weight: 700;
     transition: 0.3s;
 }
 
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,198,255,0.35);
+}
 .stButton > button:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0,198,255,0.35);
