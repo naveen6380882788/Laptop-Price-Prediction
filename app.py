@@ -2,31 +2,196 @@ import streamlit as st
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 
-# Page configuration
+# =========================
+# PAGE CONFIG
+# =========================
 st.set_page_config(
     page_title="Laptop Price Prediction",
     page_icon="💻",
     layout="centered"
 )
 
-# Load dataset
-df = pd.read_csv("laptop_price_100.csv")
+# =========================
+# CUSTOM CSS
+# =========================
+st.markdown("""
+<style>
 
-# Features and target
-X = df[["RAM", "Storage", "Processor", "Screen_Size"]]
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Animated dark background */
+.stApp {
+    background: linear-gradient(
+        -45deg,
+        #0f0c29,
+        #302b63,
+        #24243e,
+        #1a1a2e
+    );
+    background-size: 400% 400%;
+    animation: gradientShift 18s ease infinite;
+    color: #e6e8f0;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Main container */
+.block-container {
+    max-width: 850px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+/* Main title */
+.title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #b8c1ec;
+    font-size: 16px;
+    margin-bottom: 35px;
+}
+
+/* Input labels */
+label {
+    color: #dfe5ff !important;
+    font-weight: 600 !important;
+}
+
+/* Select boxes */
+div[data-baseweb="select"] > div {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid rgba(255,255,255,0.20) !important;
+    border-radius: 12px !important;
+}
+
+/* Button */
+.stButton > button {
+    width: 100%;
+    height: 55px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(90deg, #00c6ff, #7b2ff7);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,198,255,0.35);
+}
+
+/* Prediction result */
+.result-box {
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 18px;
+    text-align: center;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.result-title {
+    color: #b8c1ec;
+    font-size: 16px;
+}
+
+.result-price {
+    color: #00e5ff;
+    font-size: 38px;
+    font-weight: 800;
+}
+
+.info-box {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.footer {
+    text-align: center;
+    color: #8992b5;
+    font-size: 13px;
+    margin-top: 35px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+# =========================
+# LOAD DATASET
+# =========================
+@st.cache_data
+def load_data():
+    return pd.read_csv("laptop_price_100.csv")
+
+
+df = load_data()
+
+
+# =========================
+# TRAIN MODEL
+# =========================
+X = df[[
+    "RAM",
+    "Storage",
+    "Processor",
+    "Screen_Size"
+]]
+
 y = df["Price"]
 
-# Train model
 model = LinearRegression()
 model.fit(X, y)
 
-# Title
-st.title("💻 Laptop Price Prediction")
-st.write("Enter laptop specifications to predict the price.")
 
-st.divider()
+# =========================
+# HEADER
+# =========================
+st.markdown(
+    '<div class="title">💻 Laptop Price Prediction</div>',
+    unsafe_allow_html=True
+)
 
-# Input fields
+st.markdown(
+    '<div class="subtitle">'
+    'Machine Learning based Laptop Price Prediction System'
+    '</div>',
+    unsafe_allow_html=True
+)
+
+
+# =========================
+# INPUT SECTION
+# =========================
+st.markdown("### ⚙️ Laptop Specifications")
+
 ram = st.selectbox(
     "RAM (GB)",
     [4, 8, 16, 32]
@@ -47,8 +212,11 @@ screen_size = st.selectbox(
     [14.0, 15.6, 16.0, 17.3]
 )
 
-# Predict button
-if st.button("🔮 Predict Price", use_container_width=True):
+
+# =========================
+# PREDICT
+# =========================
+if st.button("🔮 Predict Laptop Price"):
 
     new_laptop = pd.DataFrame({
         "RAM": [ram],
@@ -59,18 +227,54 @@ if st.button("🔮 Predict Price", use_container_width=True):
 
     prediction = model.predict(new_laptop)[0]
 
-    st.success(f"💰 Predicted Laptop Price: ₹{prediction:,.2f}")
+    st.markdown(
+        f"""
+        <div class="result-box">
+            <div class="result-title">
+                Estimated Laptop Price
+            </div>
 
-# Dataset information
-st.divider()
-st.subheader("📊 Dataset Information")
+            <div class="result-price">
+                ₹ {prediction:,.2f}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-col1, col2 = st.columns(2)
+
+# =========================
+# DATASET INFO
+# =========================
+st.markdown(
+    """
+    <div class="info-box">
+        <h3>📊 Dataset Information</h3>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.metric("Total Records", len(df))
+    st.metric("Records", len(df))
 
 with col2:
     st.metric("Features", 4)
 
-st.caption("Laptop Price Prediction using Machine Learning")
+with col3:
+    st.metric("Target", "Price")
+
+
+# =========================
+# FOOTER
+# =========================
+st.markdown(
+    """
+    <div class="footer">
+        Laptop Price Prediction using Python & Machine Learning
+    </div>
+    """,
+    unsafe_allow_html=True
+)
