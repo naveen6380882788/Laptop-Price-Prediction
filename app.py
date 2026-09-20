@@ -234,6 +234,7 @@ screen_size = st.selectbox(
 # PREDICT
 # =========================
 if st.button("🔮 Predict Laptop Price"):
+       layout="centered"
 
     new_laptop = pd.DataFrame({
         "RAM": [ram],
